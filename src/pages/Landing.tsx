@@ -12,14 +12,38 @@ import Consultation from '../components/landing/Consultation';
 import ExampleDocuments from '../components/landing/ExampleDocuments';
 import CTA from '../components/landing/CTA';
 import Footer from '../components/landing/Footer';
+import VideoGuide from '../components/landing/VideoGuide';
 import { useSeo, webPageSchema } from '../lib/seo';
+import { VIDEO_GUIDE, isPlaceholderVideoUrl, isSelfHostedVideoUrl } from '../lib/videoGuide';
+
+function videoObjectSchema() {
+  return VIDEO_GUIDE.map((video) => {
+    const schema: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: video.title,
+      description: video.description,
+      transcript: video.transcript.join('\n\n'),
+    };
+
+    if (!isPlaceholderVideoUrl(video.embedUrl)) {
+      if (isSelfHostedVideoUrl(video.embedUrl)) {
+        schema.contentUrl = video.embedUrl;
+      } else {
+        schema.embedUrl = video.embedUrl;
+      }
+    }
+
+    return schema;
+  });
+}
 
 export default function Landing() {
   useSeo({
     title: 'Claim Navigator by Get Pro Se Solutions, LLC | Small Claims Document Templates',
     description: 'Claim Navigator is a self-help document preparation platform for self-represented litigants. Small claims court document templates and guided preparation support by Get Pro Se Solutions, LLC.',
     path: '/',
-    jsonLd: [webPageSchema('Claim Navigator Home', 'Self-help small claims document preparation platform by Get Pro Se Solutions, LLC.', '/')],
+    jsonLd: [webPageSchema('Claim Navigator Home', 'Self-help small claims document preparation platform by Get Pro Se Solutions, LLC.', '/'), ...videoObjectSchema()],
   });
 
   return (
@@ -28,13 +52,14 @@ export default function Landing() {
       <main>
         <Hero />
         <Overview />
+        <VideoGuide />
+        <WhoFor />
+        <Included />
+        <Process />
         <DisclaimerNotice />
         <Problem />
-        <Included />
         <ExampleDocuments />
-        <Process />
         <About />
-        <WhoFor />
         <FAQ />
         <Consultation />
         <CTA />

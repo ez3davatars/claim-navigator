@@ -29,6 +29,13 @@ export default function WhoFor() {
           <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white mb-6 text-balance">
             Designed for people ready to stand up for themselves.
           </h2>
+          <a
+            href="#video-guide"
+            data-video-jump="1"
+            className="inline-flex text-sm font-semibold text-gold-300 underline decoration-gold-400 underline-offset-4 hover:text-gold-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950 rounded"
+          >
+            Watch: The mistake many self-represented litigants make
+          </a>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">

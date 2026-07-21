@@ -2,6 +2,8 @@ const BLOCKS = [
   {
     h: 'WHAT IS CLAIM NAVIGATOR?',
     p: 'Claim Navigator is a self-help document preparation platform by Get Pro Se Solutions, LLC designed to help self-represented litigants organize and prepare professionally formatted complaint documents commonly used in small claims, civil, supreme, and federal court proceedings.',
+    videoJump: 0,
+    videoText: 'Watch: What a complaint does in a lawsuit',
   },
   {
     h: 'WHO IS CLAIM NAVIGATOR FOR?',
@@ -34,13 +36,22 @@ export default function Overview() {
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-navy-900">Everything you need to know, at a glance.</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
-          {BLOCKS.map(({ h, p }) => (
+          {BLOCKS.map(({ h, p, videoJump, videoText }) => (
             <article
               key={h}
               className="bg-gradient-to-br from-gold-100/90 via-gold-50 to-white border border-gold-200 rounded-2xl p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:border-gold-400 hover:shadow-2xl"
             >
               <h3 className="font-serif text-xl font-semibold text-navy-900 mb-2">{h}</h3>
               <p className="text-navy-700 leading-relaxed">{p}</p>
+              {videoText && typeof videoJump === 'number' && (
+                <a
+                  href="#video-guide"
+                  data-video-jump={videoJump}
+                  className="inline-flex mt-4 text-sm font-semibold text-gold-700 underline decoration-gold-300 underline-offset-4 hover:text-gold-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 rounded"
+                >
+                  {videoText}
+                </a>
+              )}
             </article>
           ))}
         </div>
@@ -48,4 +59,3 @@ export default function Overview() {
     </section>
   );
 }
-

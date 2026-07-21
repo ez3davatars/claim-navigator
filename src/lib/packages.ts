@@ -1,5 +1,3 @@
-import { CLERICAL_PACKAGE_DISCLAIMER } from './legal';
-
 export type PackageId = 'starter' | 'standard' | 'expedited';
 
 export interface ClaimNavigatorPackage {
@@ -8,11 +6,13 @@ export interface ClaimNavigatorPackage {
   title: string;
   eyebrow: string;
   price: number;
+  paymentLabel: string;
   turnaround: string;
   description: string;
   features: string[];
+  ctaText: string;
   requiresIntake: boolean;
-  disclaimer?: string;
+  featured?: boolean;
 }
 
 export const PACKAGES: ClaimNavigatorPackage[] = [
@@ -22,6 +22,7 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
     title: 'DIY Template Starter Pack',
     eyebrow: 'Package 1',
     price: 49,
+    paymentLabel: 'one-time',
     turnaround: 'Instant Digital Delivery',
     description: 'Downloadable small claims templates and plain-language instructions for self-represented litigants who want to prepare their own documents.',
     features: [
@@ -32,6 +33,7 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
       'Settlement Proposal Template',
       'Step-by-Step Instructions Guide',
     ],
+    ctaText: 'Get DIY Starter Pack',
     requiresIntake: false,
   },
   {
@@ -40,6 +42,7 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
     title: 'Standard Clerical Document Preparation',
     eyebrow: 'Package 2',
     price: 149,
+    paymentLabel: 'one-time',
     turnaround: '14 Days',
     description: 'Clerical document preparation services for self-represented litigants. Customer must provide all information and responses required for document completion.',
     features: [
@@ -49,8 +52,9 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
       'Administrative document assistance only',
       'No legal advice or legal strategy provided',
     ],
+    ctaText: 'Start Standard Preparation',
     requiresIntake: true,
-    disclaimer: CLERICAL_PACKAGE_DISCLAIMER,
+    featured: true,
   },
   {
     id: 'expedited',
@@ -58,6 +62,7 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
     title: 'Expedited Clerical Document Preparation',
     eyebrow: 'Package 3',
     price: 299,
+    paymentLabel: 'one-time',
     turnaround: '48 Hours',
     description: 'Expedited clerical document preparation services for self-represented litigants. Customer must provide all information and responses required for document completion.',
     features: [
@@ -67,8 +72,8 @@ export const PACKAGES: ClaimNavigatorPackage[] = [
       'Administrative document assistance only',
       'No legal advice or legal strategy provided',
     ],
+    ctaText: 'Start Expedited Preparation',
     requiresIntake: true,
-    disclaimer: CLERICAL_PACKAGE_DISCLAIMER,
   },
 ];
 

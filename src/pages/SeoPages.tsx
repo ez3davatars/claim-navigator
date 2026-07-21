@@ -3,8 +3,7 @@ import FAQ from '../components/landing/FAQ';
 import { navigate } from '../lib/router';
 import { useSeo, breadcrumbSchema, webPageSchema, faqSchema } from '../lib/seo';
 import { ALL_FAQS } from '../lib/faqs';
-import { PACKAGES } from '../lib/packages';
-import { CLERICAL_PACKAGE_DISCLAIMER } from '../lib/legal';
+import PricingSection from '../components/landing/PricingSection';
 
 const HOME = { name: 'Home', path: '/' };
 const L = (label: string, to: string) => (
@@ -273,7 +272,7 @@ export function ProSePrepPage() {
 export function HowItWorksPage() {
   const path = '/how-it-works';
   const title = 'How Claim Navigator Works | Get Pro Se Solutions, LLC';
-  const desc = 'How Claim Navigator works: purchase, download, prepare, and file. Step-by-step small claims document preparation from Get Pro Se Solutions, LLC.';
+  const desc = 'How Claim Navigator works for DIY templates, standard clerical document preparation, and expedited preparation packages from Get Pro Se Solutions, LLC.';
   useSeo({
     title, description: desc, path,
     jsonLd: [
@@ -286,24 +285,27 @@ export function HowItWorksPage() {
     <SeoLayout
       breadcrumbs={[HOME, { name: 'How It Works', path }]}
       title="How Claim Navigator Works"
-      subtitle="From purchase to preparation, in four clear steps."
+      subtitle="A clear preparation flow for DIY templates, standard clerical preparation, and expedited support."
     >
-      <p>Claim Navigator is designed to remove the guesswork from preparing small claims documents. Here is how the process works from the moment you purchase to the moment you walk into court.</p>
+      <p>Claim Navigator is designed to help self-represented litigants organize complaint preparation materials before filing. The process works across all three package options.</p>
 
-      <h2>1. Choose a Package</h2>
-      <p>Choose the $49 DIY Template Starter Pack or a clerical document preparation package. Payment is processed securely through Stripe.</p>
+      <h2>1. Select the Package That Fits Your Needs</h2>
+      <p>Choose the $49 DIY Template Starter Pack, the $149 Standard Clerical Document Preparation package, or the $299 Expedited Clerical Document Preparation package.</p>
 
-      <h2>2. Instant Digital Delivery</h2>
-      <p>After checkout, you receive immediate digital access to every template and the instructions guide, plus an email confirmation with a link you can return to any time.</p>
+      <h2>2. Complete the Guided Materials</h2>
+      <p>Complete the guided prompts, templates, or intake questionnaire for your selected package. The customer provides all case-specific facts, responses, and supporting information.</p>
 
-      <h2>3. Follow the Step-by-Step Guide</h2>
-      <p>The guide explains how and when to use each template: demand letter first, then complaint or answer, then discovery and settlement. Each template has structured prompts so you know exactly what to fill in.</p>
+      <h2>3. Organize Your Case Information</h2>
+      <p>Gather and organize your case-specific facts, documents, timelines, communications, and supporting information before preparing or reviewing any document.</p>
 
-      <h2>4. Verify Local Rules and File</h2>
-      <p>Before filing anything, confirm your local court's rules, fees, deadlines, and service requirements. Users are responsible for filing their own documents and complying with their jurisdiction's procedures.</p>
+      <h2>4. Review Local Court Requirements</h2>
+      <p>Review your local court rules, deadlines, service requirements, filing fees, and formatting requirements before submitting anything to the court.</p>
+
+      <h2>5. File and Serve According to Your Jurisdiction</h2>
+      <p>File and serve documents according to your jurisdiction's rules. Claim Navigator does not file documents with the court or provide legal representation.</p>
 
       <h2>What Claim Navigator Does Not Do</h2>
-      <p>Claim Navigator does not provide legal advice, file documents on your behalf, or represent you in court. It is a self-help tool, not a law firm.</p>
+      <p>Claim Navigator does not provide legal advice, file documents on your behalf, or represent you in court. It is a self-help document preparation platform, not a law firm.</p>
 
       <FAQ faqs={ALL_FAQS.slice(0, 8)} heading="How It Works FAQs" />
     </SeoLayout>
@@ -311,101 +313,7 @@ export function HowItWorksPage() {
 }
 
 export function PricingPage() {
-  const path = '/pricing';
-  const title = 'Pricing | Claim Navigator Starter Pack — $49';
-  const desc = 'One-time $49 pricing for the Claim Navigator Starter Pack: six small claims court document templates plus a step-by-step guide. By Get Pro Se Solutions, LLC.';
-  useSeo({
-    title, description: desc, path,
-    jsonLd: [
-      webPageSchema(title, desc, path),
-      breadcrumbSchema([HOME, { name: 'Pricing', path }]),
-      {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: 'Claim Navigator Starter Pack',
-        description: 'Six small claims court document templates plus a step-by-step instructions guide.',
-        brand: { '@type': 'Brand', name: 'Claim Navigator' },
-        offers: { '@type': 'Offer', price: '49.00', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-      },
-    ],
-  });
-
-  return (
-    <SeoLayout
-      breadcrumbs={[HOME, { name: 'Pricing', path }]}
-      title="Simple package pricing."
-      subtitle="Choose DIY templates or clerical document preparation support. No subscriptions."
-    >
-      <div className="grid lg:grid-cols-3 gap-5 my-8 not-prose">
-        {PACKAGES.map((pkg) => (
-          <article key={pkg.id} className="bg-white border border-navy-100 rounded-2xl p-6 shadow-sm flex flex-col">
-            <div className="text-xs font-semibold text-gold-700 uppercase tracking-widest mb-2">{pkg.eyebrow}</div>
-            <h2 className="font-serif text-2xl font-semibold text-navy-900 mb-3">{pkg.title}</h2>
-            <p className="text-sm text-navy-600 leading-relaxed mb-5">{pkg.description}</p>
-            <div className="flex items-end justify-between gap-4 pb-5 mb-5 border-b border-navy-100">
-              <div>
-                <div className="text-4xl font-serif font-bold text-navy-900">${pkg.price}</div>
-                <div className="text-xs text-navy-500">one-time</div>
-              </div>
-              <div className="text-right">
-                <div className="text-xs uppercase tracking-widest text-navy-500">Turnaround</div>
-                <div className="font-semibold text-navy-900">{pkg.turnaround}</div>
-              </div>
-            </div>
-            <ul className="space-y-2 text-sm text-navy-700 mb-5">
-              {pkg.features.map((feature) => <li key={feature}>- {feature}</li>)}
-            </ul>
-            {pkg.disclaimer && (
-              <p className="text-xs text-navy-600 leading-relaxed bg-navy-50 border border-navy-100 rounded-lg p-3 mb-5">
-                {pkg.disclaimer}
-              </p>
-            )}
-            <button
-              onClick={() => navigate(`/checkout?package=${pkg.id}`)}
-              className="mt-auto bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-5 py-3 rounded-lg"
-            >
-              Select Package
-            </button>
-          </article>
-        ))}
-      </div>
-
-      <h2>Clerical Preparation Packages</h2>
-      <p>The Standard and Expedited packages are administrative document assistance only. Customers must provide all information, facts, document content, and responses required for document completion.</p>
-      <p>{CLERICAL_PACKAGE_DISCLAIMER}</p>
-
-      <div className="bg-navy-950 text-white rounded-3xl p-10 md:p-14 text-center my-8 not-prose">
-        <div className="text-gold-400 text-sm font-semibold uppercase tracking-widest mb-3">Starter Pack</div>
-        <div className="text-6xl font-serif font-bold mb-2">$49</div>
-        <div className="text-navy-300 mb-8">one-time · instant digital delivery</div>
-        <ul className="text-left max-w-md mx-auto space-y-2 text-navy-100 mb-8">
-          <li>· Small Claims Complaint Template</li>
-          <li>· Discovery Demand Template</li>
-          <li>· Demand Letter Template</li>
-          <li>· Defendant's Answer Template</li>
-          <li>· Settlement Proposal Template</li>
-          <li>· Step-by-Step Instructions Guide</li>
-        </ul>
-        <button
-          onClick={() => navigate('/checkout')}
-          className="bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-8 py-3.5 rounded-lg"
-        >
-          Get the Starter Pack
-        </button>
-      </div>
-
-      <h2>What's Included</h2>
-      <p>The Starter Pack covers the six most commonly needed small claims documents for self-represented litigants, plus a plain-language instructions guide that explains how and when to use each template.</p>
-
-      <h2>Refund Policy</h2>
-      <p>Because the Starter Pack is a digital product delivered immediately, and clerical preparation reserves administrative time, all sales are final unless otherwise required by law. A free 5-minute after-purchase consultation is available for general product and process questions.</p>
-
-      <h2>Secure Checkout</h2>
-      <p>Payment is processed through Stripe. We do not store credit card information on our servers.</p>
-
-      <FAQ faqs={ALL_FAQS.slice(8, 10).concat(ALL_FAQS.slice(0, 4))} heading="Pricing FAQs" />
-    </SeoLayout>
-  );
+  return <PackagesPricingPage />;
 }
 
 export function PackagesPricingPage() {
@@ -440,43 +348,12 @@ export function PackagesPricingPage() {
       title="Simple package pricing."
       subtitle="Choose DIY templates or clerical document preparation support. No subscriptions."
     >
-      <div className="grid lg:grid-cols-3 gap-5 my-8 not-prose">
-        {PACKAGES.map((pkg) => (
-          <article key={pkg.id} className="bg-white border border-navy-100 rounded-2xl p-6 shadow-sm flex flex-col">
-            <div className="text-xs font-semibold text-gold-700 uppercase tracking-widest mb-2">{pkg.eyebrow}</div>
-            <h2 className="font-serif text-2xl font-semibold text-navy-900 mb-3">{pkg.title}</h2>
-            <p className="text-sm text-navy-600 leading-relaxed mb-5">{pkg.description}</p>
-            <div className="flex items-end justify-between gap-4 pb-5 mb-5 border-b border-navy-100">
-              <div>
-                <div className="text-4xl font-serif font-bold text-navy-900">${pkg.price}</div>
-                <div className="text-xs text-navy-500">one-time</div>
-              </div>
-              <div className="text-right">
-                <div className="text-xs uppercase tracking-widest text-navy-500">Turnaround</div>
-                <div className="font-semibold text-navy-900">{pkg.turnaround}</div>
-              </div>
-            </div>
-            <ul className="space-y-2 text-sm text-navy-700 mb-5">
-              {pkg.features.map((feature) => <li key={feature}>- {feature}</li>)}
-            </ul>
-            {pkg.disclaimer && (
-              <p className="text-xs text-navy-600 leading-relaxed bg-navy-50 border border-navy-100 rounded-lg p-3 mb-5">
-                {pkg.disclaimer}
-              </p>
-            )}
-            <button
-              onClick={() => navigate(`/checkout?package=${pkg.id}`)}
-              className="mt-auto bg-gold-500 hover:bg-gold-400 text-navy-950 font-semibold px-5 py-3 rounded-lg"
-            >
-              Select Package
-            </button>
-          </article>
-        ))}
+      <div className="not-prose my-8">
+        <PricingSection showHeading={false} />
       </div>
 
-      <h2>Clerical Preparation Packages</h2>
-      <p>The Standard and Expedited packages are administrative document assistance only. Customers must provide all information, facts, document content, and responses required for document completion.</p>
-      <p>{CLERICAL_PACKAGE_DISCLAIMER}</p>
+      <h2>Package Options</h2>
+      <p>The DIY Template Starter Pack provides instant digital delivery. The Standard and Expedited packages provide administrative document assistance only, with information typed, formatted, and transferred exactly as provided by the customer.</p>
 
       <h2>Refund Policy</h2>
       <p>Because the Starter Pack is a digital product delivered immediately, and clerical preparation reserves administrative time, all sales are final unless otherwise required by law. A free 5-minute after-purchase consultation is available for general product and process questions.</p>
@@ -488,7 +365,6 @@ export function PackagesPricingPage() {
     </SeoLayout>
   );
 }
-
 export function FaqPage() {
   const path = '/faq';
   const title = 'Frequently Asked Questions | Claim Navigator';
@@ -625,4 +501,6 @@ function ContactForm() {
     </form>
   );
 }
+
+
 
