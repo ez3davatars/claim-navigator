@@ -12,7 +12,11 @@ export default function AdminLogin() {
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(() =>
+    new URLSearchParams(window.location.search).get('password_reset') === 'success'
+      ? 'Password updated successfully. Sign in with your new password.'
+      : '',
+  );
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,6 +102,9 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-navy-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-400"
               />
+              {mode === 'signin' && (
+                <button type="button" onClick={() => navigate('/admin/forgot-password')} className="mt-2 text-sm font-semibold text-gold-600 hover:underline">Forgot password?</button>
+              )}
             </div>
 
             {message && (

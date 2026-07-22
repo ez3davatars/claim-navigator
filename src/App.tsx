@@ -4,6 +4,8 @@ import Checkout from './pages/Checkout';
 import Success from './pages/Success';
 import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
+import AdminForgotPassword from './pages/AdminForgotPassword';
+import AdminResetPassword from './pages/AdminResetPassword';
 import Legal from './pages/Legal';
 import {
   TemplatesHub,
@@ -32,6 +34,10 @@ function App() {
       return <Admin />;
     case '/admin/login':
       return <AdminLogin />;
+    case '/admin/forgot-password':
+      return <AdminForgotPassword />;
+    case '/admin/reset-password':
+      return <AdminResetPassword />;
     case '/disclaimer':
       return <Legal type="disclaimer" />;
     case '/terms':

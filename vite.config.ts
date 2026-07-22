@@ -8,6 +8,8 @@ const appRoutes = [
   'success',
   'admin',
   'admin/login',
+  'admin/forgot-password',
+  'admin/reset-password',
   'disclaimer',
   'terms',
   'privacy',
